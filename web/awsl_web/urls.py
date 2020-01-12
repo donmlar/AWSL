@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url('hello', view.hello),
     url('uploadFile', view.upload),
-    url('checkcmd', view.check),
+    url('checkcmd', view.check2),
 ]

@@ -36,7 +36,7 @@ def resetPicDB():
         b.Delete(k)
     db.Write(b)
 
-    filter = [".png"]
+    filter = [".png",".jpg",".jpeg"]
     # file_list=os.walk(config.photo_path)
     path = config.photo_path
 

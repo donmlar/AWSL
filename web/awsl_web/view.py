@@ -4,6 +4,8 @@ import subprocess
 from django.http import HttpResponse
 from django.shortcuts import render
 
+import leveldb
+import json
 
 def hello(request):
     context = {}
@@ -55,3 +57,26 @@ def check(request):
 
 
     return HttpResponse("11111")
+
+
+
+def check2(request):
+
+    print('22222')
+
+    db = leveldb.LevelDB('../picdb./db')
+
+    keys_values = list(db.RangeIter())
+    jsonlist = []
+    for iter in keys_values:
+        data = {"key":iter[0].decode('utf-8'),"path":iter[1].decode('utf-8')}
+
+        jsonlist.append(data)
+
+
+    print(keys_values)
+
+
+    jo = json.dumps(jsonlist)
+
+    return HttpResponse(jo)
