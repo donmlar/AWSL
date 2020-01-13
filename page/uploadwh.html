@@ -15,32 +15,8 @@
   <link rel="stylesheet" href="../static/css/main.css">
 </head>
 <body>
-<form enctype="multipart/form-data" action="http://127.0.0.1:8000/uploadFile/" method="post">
-        {% csrf_token %}
-用户:<br>
-<input type="text" name="user" value="Mickey">
-<br>
-编号:<br>
-<input type="text" name="seriNo" value="Mouse">
-    <br>
-文件:<br>
-<input type="file" name="myfile" />
-<br>
-    <input type="submit" value="Submit">
-    </form>
-<br>
-<br>
-<form enctype="multipart/form-data" action="/checkcmd/" method="post">
-        {% csrf_token %}
-     <input type="submit" value="验证脚本">
- </form>
 
-
-
-
-
-
-    <p>{{ rlt }}</p>
+    <p>加载图片</p>
 
     <input id="tags" placeholder="Enter tags here"/>
     <script type="text/javascript">
@@ -57,9 +33,6 @@
     } );
     </script>
 
-<img src="../static/1.jpg" width="50" height="50">
-<img src="file:///C|/Users/S3/Desktop/上课/微信图片_20191225133238.jpg" width="50" height="50">
-
   <!--[if lt IE 9]>
   <div class="alert alert-warning alert-dismissible fade show m-0 rounded-0" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -69,45 +42,10 @@
   </div>
   <![endif]-->
 
-  <!--&lt;!&ndash; Header &ndash;&gt;-->
-  <!--<header class="navbar navbar-light navbar-expand-md">-->
-    <!--<div class="container">-->
-      <!--<a class="navbar-brand" href="./">jquery-viewer</a>-->
-      <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--<span class="navbar-toggler-icon"></span>-->
-      <!--</button>-->
-      <!--<div class="collapse navbar-collapse justify-content-end" id="navbar-collapse" role="navigation">-->
-        <!--<nav class="nav navbar-nav">-->
-          <!--<a class="nav-link" href="https://github.com/fengyuanchen/jquery-viewer/blob/master/README.md" data-toggle="tooltip" title="View the documentation">Docs</a>-->
-          <!--<a class="nav-link" href="https://github.com/fengyuanchen/jquery-viewer" data-toggle="tooltip" title="View the GitHub project">GitHub</a>-->
-          <!--<a class="nav-link" href="https://fengyuanchen.github.io/viewerjs" data-toggle="tooltip" title="JavaScript image viewer">Viewer.js</a>-->
-          <!--<a class="nav-link" href="https://fengyuanchen.github.io/" data-toggle="tooltip" title="Explore more projects">Explore</a>-->
-          <!--<a class="nav-link" href="https://chenfengyuan.com/" data-toggle="tooltip" title="About the author">About</a>-->
-        <!--</nav>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</header>-->
-
-  <!-- Jumbotron -->
-  <div class="jumbotron bg-primary text-white rounded-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-md">
-          <h1>jquery-viewer <small class="h6">v1.0.1</small></h1>
-          <p class="lead">A jQuery plugin wrapper for Viewer.js.</p>
-        </div>
-        <div class="col-md">
-          <div class="carbonads">
-            <script id="_carbonads_js" src="https://cdn.carbonads.com/carbon.js?serve=CKYI55Q7&placement=fengyuanchengithubio" crossorigin="anonymous" async></script>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Content -->
   <div class="container">
-    <h1>Overview</h1>
+<!--    <h1>Overview</h1>-->
     <hr>
     <div class="row">
       <div class="col-sm-12 col-md-3">
@@ -350,7 +288,8 @@
   <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>-->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="https://fengyuanchen.github.io/shared/google-analytics.js" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/viewerjs/dist/viewer.js" crossorigin="anonymous"></script>
+<!--  <script src="https://unpkg.com/viewerjs/dist/viewer.js" crossorigin="anonymous"></script>-->
+    <script src="../static/js/viewer.js" ></script>
   <script src="../static/js/jquery-viewer.js"></script>
   <script src="../static/js/main.js"></script>
 

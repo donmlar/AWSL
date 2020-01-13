@@ -117,9 +117,12 @@ $(function () {
 
 
 $("p").click(function(){
-    alert("段落被点击了。");
+//    alert("段落被点击了。");
 
-        jQuery.get("http://127.0.0.1:8000/checkcmd/",function(data,status){
+  var $images = $('.docs-pictures');
+
+
+        jQuery.get("http://127.0.0.1:8000/loadpic/",function(data,status){
 //			alert(状态: " + status);
 $("#gallery").empty();
 			var js = JSON.parse(data);
@@ -137,6 +140,10 @@ $("#gallery").empty();
 
 
             }
+
+
+                options[name] = name === 'inline';
+                $images.viewer('destroy').viewer(options);
 
 		});
 //            <li><img data-original="../static/img/9SWr_KTB4xz0R_EBuv2sxU6vICQpflqQvM0QgrzNEII.jpg" src="../static/img/9SWr_KTB4xz0R_EBuv2sxU6vICQpflqQvM0QgrzNEII.jpg" alt="Jokhang Temple"></li>

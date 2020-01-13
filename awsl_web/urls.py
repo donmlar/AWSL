@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 
-from web.awsl_web import view
-
+# from web.awsl_web import view
+from awsl_web import view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('hello', view.hello),
     url('uploadFile', view.upload),
-    url('checkcmd', view.check2),
+    url('checkcmd', view.reload),
+    url('loadpic', view.loadpic),
+
 ]
