@@ -86,6 +86,9 @@ def check2(request):
 
 def reload(request):
 
+    pic.objects.all().delete()
+
+
     print('22222')
     path = config.photo_path
     filter = [".png", ".jpg", ".jpeg"]

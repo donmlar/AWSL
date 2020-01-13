@@ -143,16 +143,26 @@ $("#gallery").empty();
 
 
                 options[name] = name === 'inline';
+//                options[container] = '#pic_page';
                 $images.viewer('destroy').viewer(options);
 
 		});
-//            <li><img data-original="../static/img/9SWr_KTB4xz0R_EBuv2sxU6vICQpflqQvM0QgrzNEII.jpg" src="../static/img/9SWr_KTB4xz0R_EBuv2sxU6vICQpflqQvM0QgrzNEII.jpg" alt="Jokhang Temple"></li>
+});
+
+//重载
+$("p1").click(function(){
+//    alert("段落被点击了。");
+
+  var $images = $('.docs-pictures');
 
 
-//        var txt1="<p>文本。</p>";              // 使用 HTML 标签创建文本
-//        var txt2=$("<p></p>").text("文本。");  // 使用 jQuery 创建文本
-//        var txt3=document.createElement("p");
-//        txt3.innerHTML="文本。";               // 使用 DOM 创建文本 text with DOM
-//        $("#gallery").append(txt1,txt2,txt3);        // 追加新元素
+        jQuery.get("http://127.0.0.1:8000/reload/",function(data,status){
+			alert("状态: " + status);
 
+
+
+
+
+
+		});
 });

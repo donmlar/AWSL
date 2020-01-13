@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url('hello', view.hello),
     url('uploadFile', view.upload),
-    url('checkcmd', view.reload),
+    url('reload', view.reload),
     url('loadpic', view.loadpic),
 
 ]
