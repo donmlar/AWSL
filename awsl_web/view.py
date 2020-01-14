@@ -177,6 +177,7 @@ def getpictag(request):
 
 
 
+
 def CalcSha1(filepath):
     with open(filepath, 'rb') as f:
         sha1obj = hashlib.sha1()

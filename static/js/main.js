@@ -174,8 +174,17 @@ $("p2").click(function(){
 
   var $images = $('.docs-pictures');
 
+  var selecter_list = $("#tag_selecter").find(".tag-active") ;
 
-        jQuery.post("http://127.0.0.1:8000/savetag/",
+  var tag_list = new Array();
+  for(var i=0; i<selecter_list.length; i++){
+        selecter = selecter_list[i];
+        tag_list.push(selecter.firstChild.nodeValue);
+  }
+
+
+
+   jQuery.post("http://127.0.0.1:8000/savetag/",
     {
         key:$('img.viewer-move').attr("alt"),
         tags:tag_list
@@ -189,13 +198,17 @@ $("p2").click(function(){
 $("p3").click(function(){
 //    alert("段落被点击了。");
 
-    var $mb = $(  "#tags" );
+        var selecter_list = jQuery("#tag_selecter").find(".tag") ;
+        for(var i=0; i<selecter_list.length; i++){
+                selecter = $(selecter_list[i]);
+                if(selecter.hasClass("tag-active")){
+                    selecter.removeClass('tag-active')
+                }
+                if(selecter.hasClass("tag-active")){
+                    selecter.removeClass('tag-active')
+                }
+         }
 
-//    $mb.masterblaster( "push", "tag 1" );
-//    while
-    $mb.masterblaster( "pop");
-
-    var triggerKeys =  $mb.masterblaster( "triggerKeys");
 
 });
 
@@ -211,16 +224,40 @@ $("p4").click(function(){
         key:$('img.viewer-move').attr("alt")
     },
     function(data,status){
-        alert("数据: \n" + data + "\n状态: " + status);
+//        alert("数据: \n" + data + "\n状态: " + status);
         var js = JSON.parse(data);
-        for(var i=0; i<js.length; i++){
-                var jsonobj = js[i]
-                $mb.masterblaster( "push", jsonobj.tag);
 
+        var taglist = new Array();
+        for(var i=0; i<js.length; i++){
+                var jsonobj = js[i];
+                taglist.push( jsonobj.tag);
          }
+
+        var selecter_list = jQuery("#tag_selecter").find(".tag") ;
+        for(var i=0; i<selecter_list.length; i++){
+                selecter = selecter_list[i];
+                if  (taglist.includes(selecter.firstChild.nodeValue)){
+                    $(selecter).addClass('tag-active')
+                    taglist.splice(taglist.indexOf(selecter.firstChild.nodeValue),1);
+                }
+         }
+
+        for(var i=0; i<taglist.length; i++){
+                var tag = taglist[i]
+                var html = '<li class="label label-default tag tag-active">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+tag+'">X</a></li>';
+                $(html).prependTo($('#my-second-tags'));
+         }
+
     });
 
 
 
 
 });
+
+
+
+
+
+
+

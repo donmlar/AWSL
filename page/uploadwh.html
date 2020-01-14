@@ -43,20 +43,20 @@
         <p4>加载tag</p4>
 
 
-	<div class="container">
+	<div id="tag_selecter" class="container">
 		<form action="#">
 			<ul id="my-tags" class="tag-cloud list-inline">
-				<li>First Tag</li>
-				<li>Second Tag</li>
-				<li>Third Tag</li>
-				<li class="tag-active">Pre-selected Tag</li>
+				<li>二次元</li>
+				<li>COS</li>
+				<li>三次元</li>
+				<li>表情包</li>
 			</ul>
+
+          <div>
 			<ul id="my-second-tags" class="tag-cloud list-inline">
-				<li>First Tag</li>
-				<li>Second Tag</li>
-				<li>Third Tag</li>
-				<li class="tag-active">Pre-selected Tag</li>
 			</ul>
+
+            </div>
 		</form>
 	</div>
 	<p3>清空ag</p3>
@@ -65,11 +65,16 @@
 <!--	<script src="dist/taxonomy.min.js"></script>-->
     <script src="../static/js/taxonomy-jquery.js"></script>
 	<script>
-	$('#my-tags').taxonomy_jquery();
-<!--	$('#my-second-tags').taxonomy_jquery({-->
-<!--		createButton:false,-->
-<!--		hiddenFieldName:'my-second-tags[]'-->
-<!--	});-->
+
+	$('#my-tags').taxonomy_jquery({
+		createButton:false,
+		hiddenFieldName:'my-second-tags[]'
+	});
+
+	<!--$('#my-second-tags').taxonomy_jquery({-->
+		<!--createButton:false,-->
+		<!--hiddenFieldName:'my-second-tags[]'-->
+	<!--});-->
 
 	$('#my-second-tags').taxonomy_jquery();
 		</script>
