@@ -166,3 +166,61 @@ $("p1").click(function(){
 
 		});
 });
+
+
+//保存
+$("p2").click(function(){
+//    alert("段落被点击了。");
+
+  var $images = $('.docs-pictures');
+
+
+        jQuery.post("http://127.0.0.1:8000/savetag/",
+    {
+        key:$('img.viewer-move').attr("alt"),
+        tags:tag_list
+    },
+    function(data,status){
+        alert("数据: \n" + data + "\n状态: " + status);
+    });
+});
+
+
+$("p3").click(function(){
+//    alert("段落被点击了。");
+
+    var $mb = $(  "#tags" );
+
+//    $mb.masterblaster( "push", "tag 1" );
+//    while
+    $mb.masterblaster( "pop");
+
+    var triggerKeys =  $mb.masterblaster( "triggerKeys");
+
+});
+
+
+$("p4").click(function(){
+//    alert("段落被点击了。");
+
+  var $images = $('.docs-pictures');
+  var $mb = $(  "#tags" );
+
+        jQuery.post("http://127.0.0.1:8000/getpictag/",
+    {
+        key:$('img.viewer-move').attr("alt")
+    },
+    function(data,status){
+        alert("数据: \n" + data + "\n状态: " + status);
+        var js = JSON.parse(data);
+        for(var i=0; i<js.length; i++){
+                var jsonobj = js[i]
+                $mb.masterblaster( "push", jsonobj.tag);
+
+         }
+    });
+
+
+
+
+});

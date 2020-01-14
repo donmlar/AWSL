@@ -26,5 +26,6 @@ urlpatterns = [
     url('uploadFile', view.upload),
     url('reload', view.reload),
     url('loadpic', view.loadpic),
-
+    url('savetag', view.savetag),
+    url('getpictag', view.getpictag),
 ]

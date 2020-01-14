@@ -130,13 +130,52 @@ def loadpic(request):
     #             test1.save()
 
     jsonlist = []
-    list = pic.objects.all()
+    list = pic.objects.all()[0:10]
     for iter in list:
         data = {"key":iter.sha,"path":iter.path}
 
         jsonlist.append(data)
-    jo = json.dumps(jsonlist)
+    jo = json.dumps(jsonlist, ensure_ascii=False)
     return HttpResponse(jo)
+
+
+
+
+
+def savetag(request):
+    key  = request.POST['key']
+
+    tags  = request.POST.getlist('tags[]')
+
+    pic_tag.objects.filter(sha=key).delete()
+
+    for tag in tags:
+
+        test1 = pic_tag(sha=key,tag=tag)
+        test1.save()
+
+
+    return HttpResponse(1)
+
+
+
+def getpictag(request):
+    key  = request.POST['key']
+
+
+    tagObjs = pic_tag.objects.filter(sha=key)
+
+    find_tags = []
+    for tag in tagObjs:
+
+        test1 = {"tag":tag.tag}
+        find_tags.append(test1)
+
+    jo = json.dumps(find_tags, ensure_ascii=False)
+
+    return HttpResponse(jo)
+
+
 
 def CalcSha1(filepath):
     with open(filepath, 'rb') as f:

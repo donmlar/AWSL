@@ -8,12 +8,23 @@
     <script type="text/javascript" src="../static/jquery.masterblaster.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/jquery.masterblaster.css">
 
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../static/js/taxonomy-jquery.js"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/viewerjs/dist/viewer.css" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="../static/js/viewer.css" crossorigin="anonymous">-->
   <link rel="stylesheet" href="../static/css/main.css">
+
+
+  	<style>
+		body{margin-top:30px;}
+		.tag-cloud li {margin:3px;padding:10px;font-size:1em;cursor: pointer;}
+		.tag-active{background-color:red;}
+		.tag-undo{color:#fff;margin-left:10px}
+		.tag-undo:hover{color:#fff}
+	</style>
 </head>
 <body>
 
@@ -23,29 +34,47 @@
     <p1>重载路径</p1>
 
 
-    <input id="tags" placeholder="Enter tags here"/>
-    <script type="text/javascript">
-      $( "#tags" ).masterblaster( {
-        animate: true
-      } );
+    <p2>保存tag</p2>
 
-    $( "#tags" ).on( "mb:add", function( e, tagName ) {
-      console.info( "Added: ", tagName );
-    } );
 
-    $( "#tags" ).on( "mb:remove", function( e, tagName ) {
-      console.info( "Removed: ", tagName );
-    } );
-    </script>
+    <p3>清空ag</p3>
 
-  <!--[if lt IE 9]>
-  <div class="alert alert-warning alert-dismissible fade show m-0 rounded-0" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.
-  </div>
-  <![endif]-->
+
+        <p4>加载tag</p4>
+
+
+	<div class="container">
+		<form action="#">
+			<ul id="my-tags" class="tag-cloud list-inline">
+				<li>First Tag</li>
+				<li>Second Tag</li>
+				<li>Third Tag</li>
+				<li class="tag-active">Pre-selected Tag</li>
+			</ul>
+			<ul id="my-second-tags" class="tag-cloud list-inline">
+				<li>First Tag</li>
+				<li>Second Tag</li>
+				<li>Third Tag</li>
+				<li class="tag-active">Pre-selected Tag</li>
+			</ul>
+		</form>
+	</div>
+	<p3>清空ag</p3>
+
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--	<script src="dist/taxonomy.min.js"></script>-->
+    <script src="../static/js/taxonomy-jquery.js"></script>
+	<script>
+	$('#my-tags').taxonomy_jquery();
+<!--	$('#my-second-tags').taxonomy_jquery({-->
+<!--		createButton:false,-->
+<!--		hiddenFieldName:'my-second-tags[]'-->
+<!--	});-->
+
+	$('#my-second-tags').taxonomy_jquery();
+		</script>
+
+
 
 
   <!-- Content -->
@@ -192,10 +221,8 @@
         <div class="docs-galley mb-3">
           <ul id ="gallery" class="docs-pictures clearfix">
             <li><img data-original="../static/img/6b084396gy1g9o8jy3thxj20u018zjv9.jpg" src="../static/img/6b084396gy1g9o8jy3thxj20u018zjv9.jpg" alt="Cuo Na Lake"></li>
-            <li><img data-original="../static/img/8.jpg" src="../static/img/8.jpg" alt="Tibetan Plateau"></li>
             <li><img data-original="../static/img/9SWr_KTB4xz0R_EBuv2sxU6vICQpflqQvM0QgrzNEII.jpg" src="../static/img/9SWr_KTB4xz0R_EBuv2sxU6vICQpflqQvM0QgrzNEII.jpg" alt="Jokhang Temple"></li>
-            <li><img data-original="images/tibet-4.jpg" src="../static/img/51b70b5aa5ee55f10f9eed2102b733f1 (1).jpg" alt="Potala Palace 1"></li>
-            <li><img data-original="images/tibet-5.jpg" src="../static/img/DSC_4299.jpg" alt="Potala Palace 2"></li>
+            <li><img data-original="../static/img/51b70b5aa5ee55f10f9eed2102b733f1 (1).jpg" src="../static/img/51b70b5aa5ee55f10f9eed2102b733f1 (1).jpg" alt="Potala Palace 1"></li>
           </ul>
         </div>
       </div>
