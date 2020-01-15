@@ -207,7 +207,12 @@ $("p3").click(function(){
                 if(selecter.hasClass("tag-active")){
                     selecter.removeClass('tag-active')
                 }
+
+$('#my-second-tags').empty();
+
          }
+
+
 
 
 });
@@ -244,7 +249,7 @@ $("p4").click(function(){
 
         for(var i=0; i<taglist.length; i++){
                 var tag = taglist[i]
-                var html = '<li class="label label-default tag tag-active">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+tag+'">X</a></li>';
+                var html = '<li class=" label label-default removeable tag tag-active">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+tag+'">X</a></li>';
                 $(html).prependTo($('#my-second-tags'));
          }
 

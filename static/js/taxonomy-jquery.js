@@ -18,6 +18,7 @@
     var taxonomy_jquery = $.extend({
       tagClass:'.tag',
       tagClasses:'label label-default',
+      tagRemoveableClasses:'label label-default removeable',
       tagActiveClass:'.tag-active',
       tagCreateClass:'.tag-create',
       tagUndo:'.tag-undo',
@@ -94,7 +95,7 @@
         // Otherwise, add it.
         if(this.addTag(tag,taxonomy_jquery.newTags) === true && tag){
           // Add element to tag cloud
-          var html = '<li class="label label-default '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="'+taxonomy_jquery.tagUndo.substr(1)+'" '+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'">'+taxonomy_jquery.undoCharacter+'</a></li>';
+          var html = '<li class="label label-default removeable '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="'+taxonomy_jquery.tagUndo.substr(1)+'" '+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'">'+taxonomy_jquery.undoCharacter+'</a></li>';
           $(html).prependTo(taxonomy_jquery.listClass);
           // Add to active tags
           taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
