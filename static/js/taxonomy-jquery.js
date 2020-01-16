@@ -28,7 +28,9 @@
       undoCharacter:'X',
       createButton:true,
       createButtonPosition:'first',
-      createButtonLabel:'+ Create a tag'
+      createButtonLabel:'+ Create a tag',
+      maxlevel:3,
+      addList:'add-list'
     }, options );
 
     // Define element vars
@@ -86,7 +88,13 @@
      */
     taxonomy_jquery.addInputTag = function(){
       // Remove comma from tag
-      var tag = this.cutInputVal(this.addInput).replace(/^,|,$/g,'');
+
+//      var tag = this.cutInputVal(this.addInput).replace(/^,|,$/g,'');
+
+      var p = $(taxonomy_jquery.listClass).parent();
+
+      var tag = this.cutInputVal(p.find(this.addInput)).replace(/^,|,$/g,'');
+
       // Prevent duplicates
       if(taxonomy_jquery.inObject(tag,taxonomy_jquery.existingTags)){
         // If it already exists, toggle on (never off)
@@ -132,9 +140,10 @@
       this.removeTag(tag,taxonomy_jquery.newTags);
       this.removeTag(tag,taxonomy_jquery.activeTags);
       // Remove cloud element
-      $("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']")
+      var de = $("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']")
       .parent(".tag")
-      .remove();
+
+      de.remove();
       // Reset form
       this.resetForm();
     };
@@ -211,11 +220,41 @@
         element.removeClass(taxonomy_jquery.tagActiveClass.substr(1));
         // And remove from active tags list
         taxonomy_jquery.removeTag(tag,taxonomy_jquery.activeTags);
+
+        var text = element[0].firstChild.nodeValue
+        var p = $(taxonomy_jquery.listClass).parent();
+        var level = p.attr('level')+1;
+
+        var d = $('#tag_selecter').find('#'+text+level);
+
+        d.remove();
+
+
       }else{
         // Else, activate
         element.addClass(taxonomy_jquery.tagActiveClass.substr(1));
         // Add to active tags
         taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
+
+
+
+        var text = element[0].firstChild.nodeValue
+        var p = $(taxonomy_jquery.listClass).parent();
+
+        if(p.attr('level')!==undefined){
+            if(p.attr('level').length<=this.maxlevel){
+                var level = p.attr('level')+1;
+                var html = '<sub_list class="'+this.addList+'" id="'+text+level+'" level="'+level+'">'+text+'<ul id="'+text+'"  class="tag-cloud list-inline"></ul></sub_list> ';
+
+                p.after($(html));
+
+                $('#'+text).taxonomy_jquery();
+            }
+        }
+
+
+
+
       }
       taxonomy_jquery.resetForm();
     };
@@ -251,10 +290,15 @@
         // Focus on input field
         $(taxonomy_jquery.addInput).focus();
         // Remove button
-        $(taxonomy_jquery.tagCreateClass).remove();
+//        $(taxonomy_jquery.tagCreateClass).remove();
+
+        $(taxonomy_jquery.listClass).parent().find(taxonomy_jquery.tagCreateClass).remove();
+
+
       }else{
         // Remove field
-        $(taxonomy_jquery.addInput).parent().remove();
+//        $(taxonomy_jquery.addInput).parent().remove();
+        $(taxonomy_jquery.listClass).find(taxonomy_jquery.addInput).parent().remove();
         // Add button
         if(taxonomy_jquery.createButton){
 	  if(taxonomy_jquery.createButtonPosition == 'last'){

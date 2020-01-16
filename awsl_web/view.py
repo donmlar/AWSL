@@ -143,15 +143,17 @@ def loadpic(request):
 
 
 def savetag(request):
-    key  = request.POST['key']
 
-    tags  = request.POST.getlist('tags[]')
 
-    pic_tag.objects.filter(sha=key).delete()
+    receive_data = json.loads(request.body.decode())
+
+    key  = receive_data.get('key')
+
+    tags  = receive_data.get('tags')
 
     for tag in tags:
 
-        test1 = pic_tag(sha=key,tag=tag)
+        test1 = pic_tag(sha=key,tag=tag.get('son'),tag_parent=tag.get('parent'))
         test1.save()
 
 

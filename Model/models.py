@@ -8,10 +8,11 @@ class pic(models.Model):
 
 
 class pic_tag(models.Model):
+    tag_parent = models.CharField(max_length=50)
     tag = models.CharField(max_length=50)
     sha = models.CharField(max_length=60)
 
 
 class tag(models.Model):
     tag = models.CharField(max_length=50)
-    tag_p = models.CharField(max_length=50)
+    tag_parent = models.CharField(max_length=50)

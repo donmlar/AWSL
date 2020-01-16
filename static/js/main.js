@@ -174,21 +174,31 @@ $("p2").click(function(){
 
   var $images = $('.docs-pictures');
 
-  var selecter_list = $("#tag_selecter").find(".tag-active") ;
+//  var selecter_list = $("#tag_selecter").find(".tag-active") ;
+//    var tag_list = new Array();
+//  for(var i=0; i<selecter_list.length; i++){
+//        selecter = selecter_list[i];
+//        tag_list.push(selecter.firstChild.nodeValue);
+//  }
+
+    var selecter_list = $("#tag_selecter").find(".tag-active") ;
 
   var tag_list = new Array();
-  for(var i=0; i<selecter_list.length; i++){
+  for(var i=1; i<selecter_list.length; i++){
         selecter = selecter_list[i];
-        tag_list.push(selecter.firstChild.nodeValue);
+        var is = new Object();
+        is.parent=$(selecter).parent().attr("id");
+        is.son=selecter.firstChild.nodeValue;
+        tag_list.push(is);
   }
 
 
 
    jQuery.post("http://127.0.0.1:8000/savetag/",
-    {
+    JSON.stringify({
         key:$('img.viewer-move').attr("alt"),
         tags:tag_list
-    },
+    }),
     function(data,status){
         alert("数据: \n" + data + "\n状态: " + status);
     });
@@ -207,11 +217,10 @@ $("p3").click(function(){
                 if(selecter.hasClass("tag-active")){
                     selecter.removeClass('tag-active')
                 }
-
-$('#my-second-tags').empty();
-
          }
+        var d = $('#tag_selecter').find('.add-list');
 
+        d.remove();
 
 
 
@@ -249,9 +258,12 @@ $("p4").click(function(){
 
         for(var i=0; i<taglist.length; i++){
                 var tag = taglist[i]
-                var html = '<li class=" label label-default removeable tag tag-active">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+tag+'">X</a></li>';
+                var html = '<li class=" label label-default removeable tag tag-active"'+'data-tag-slug="'+toSlug(tag)+'">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+toSlug(tag)+'">X</a></li>';
                 $(html).prependTo($('#my-second-tags'));
          }
+
+
+
 
     });
 
@@ -260,8 +272,22 @@ $("p4").click(function(){
 
 });
 
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
 
 
+
+    toSlug = function(string){
+      return encodeURIComponent(string).toLowerCase();
+    };
 
 
 
