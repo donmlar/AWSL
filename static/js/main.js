@@ -184,11 +184,12 @@ $("p2").click(function(){
     var selecter_list = $("#tag_selecter").find(".tag-active") ;
 
   var tag_list = new Array();
-  for(var i=1; i<selecter_list.length; i++){
+  for(var i=0; i<selecter_list.length; i++){
         selecter = selecter_list[i];
         var is = new Object();
         is.parent=$(selecter).parent().attr("id");
         is.son=selecter.firstChild.nodeValue;
+        is.level=$(selecter).parent().parent().attr("level").length;
         tag_list.push(is);
   }
 
@@ -241,26 +242,28 @@ $("p4").click(function(){
 //        alert("数据: \n" + data + "\n状态: " + status);
         var js = JSON.parse(data);
 
-        var taglist = new Array();
-        for(var i=0; i<js.length; i++){
-                var jsonobj = js[i];
-                taglist.push( jsonobj.tag);
-         }
+loadtag(js);
 
-        var selecter_list = jQuery("#tag_selecter").find(".tag") ;
-        for(var i=0; i<selecter_list.length; i++){
-                selecter = selecter_list[i];
-                if  (taglist.includes(selecter.firstChild.nodeValue)){
-                    $(selecter).addClass('tag-active')
-                    taglist.splice(taglist.indexOf(selecter.firstChild.nodeValue),1);
-                }
-         }
-
-        for(var i=0; i<taglist.length; i++){
-                var tag = taglist[i]
-                var html = '<li class=" label label-default removeable tag tag-active"'+'data-tag-slug="'+toSlug(tag)+'">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+toSlug(tag)+'">X</a></li>';
-                $(html).prependTo($('#my-second-tags'));
-         }
+//        var taglist = new Array();
+//        for(var i=0; i<js.length; i++){
+//                var jsonobj = js[i];
+//                taglist.push( jsonobj.tag);
+//         }
+//
+//        var selecter_list = jQuery("#tag_selecter").find(".tag") ;
+//        for(var i=0; i<selecter_list.length; i++){
+//                selecter = selecter_list[i];
+//                if  (taglist.includes(selecter.firstChild.nodeValue)){
+//                    $(selecter).addClass('tag-active')
+//                    taglist.splice(taglist.indexOf(selecter.firstChild.nodeValue),1);
+//                }
+//         }
+//
+//        for(var i=0; i<taglist.length; i++){
+//                var tag = taglist[i]
+//                var html = '<li class=" label label-default removeable tag tag-active"'+'data-tag-slug="'+toSlug(tag)+'">'+tag+'<a href="#" class="tag-undo" data-tag-slug="'+toSlug(tag)+'">X</a></li>';
+//                $(html).prependTo($('#my-second-tags'));
+//         }
 
 
 
@@ -272,15 +275,66 @@ $("p4").click(function(){
 
 });
 
-String.prototype.hashCode = function() {
-  var hash = 0, i, chr;
-  if (this.length === 0) return hash;
-  for (i = 0; i < this.length; i++) {
-    chr   = this.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
+loadtag = function(taglist) {
+
+    if(taglist.length==0){
+        return null;
+    }
+
+    tag = taglist[0];
+     var selecter_list_parent= jQuery("#tag_selecter").find("ul#"+tag.tag_parent)[0];
+    var selecter_list = jQuery("#tag_selecter").find("ul#"+tag.tag_parent)[0].children;
+
+    for(var j=0; j<taglist.length; j++){
+
+       tag = taglist[j];
+       var text = tag.tag
+       changed_flag = false;
+            var len = selecter_list.length;
+            for(var i=0; i<len; i++){
+                selecter = selecter_list[i];
+
+
+
+
+                    if  (tag.tag==selecter.firstChild.nodeValue){
+                        $(selecter).addClass('tag-active')
+                        changed_flag = true;
+//                        taglist.splice(taglist.indexOf(selecter.firstChild.nodeValue),1);
+                    }else{
+                        if(i==selecter_list.length-1 && !changed_flag){
+                            var html = '<li class=" label label-default removeable tag tag-active"'+'data-tag-slug="'+toSlug(text)+'">'+text+'<a href="#" class="tag-undo" data-tag-slug="'+toSlug(text)+'">X</a></li>';
+                            $(html).prependTo(selecter_list_parent);
+                        }
+                    }
+            }
+            if($(selecter_list).parents('sub_list').attr('level')!==undefined){
+                if($(selecter_list).parents('sub_list').attr('level').length<3){
+                    var level = $(selecter_list).parents('sub_list').attr('level')+1;
+                    var html = '<sub_list id="'+text+level+'" level="'+level+'">'+text+'<ul id="'+text+'"  class="tag-cloud list-inline"></ul></sub_list> ';
+                    $(selecter_list).parents('sub_list').after($(html));
+                    $('#'+text).taxonomy_jquery();
+                }
+            }
+            loadtag(tag.son)
+
+    }
+
+//                var text = tag.tag
+//                if(selecter.parent().attr('level')!==undefined){
+//                    if(selecter.parent().attr('level').length<=this.maxlevel){
+//                        var level = selecter.parent().attr('level')+1;
+//                        var html = '<sub_list class="'+this.addList+'" id="'+text+level+'" level="'+level+'">'+text+'<ul id="'+text+'"  class="tag-cloud list-inline"></ul></sub_list> ';
+//                        selecter.parent().after($(html));
+//                        $('#'+text).taxonomy_jquery();
+//                    }
+//                }
+//                loadtag(tag.son);
+
+
+
+
+  return null;
 };
 
 

@@ -151,9 +151,12 @@ def savetag(request):
 
     tags  = receive_data.get('tags')
 
+    pic_tag.objects.filter(sha=key).delete()
     for tag in tags:
 
-        test1 = pic_tag(sha=key,tag=tag.get('son'),tag_parent=tag.get('parent'))
+
+
+        test1 = pic_tag(sha=key,tag=tag.get('son'),tag_parent=tag.get('parent'),level=tag.get('level'))
         test1.save()
 
 
@@ -167,11 +170,15 @@ def getpictag(request):
 
     tagObjs = pic_tag.objects.filter(sha=key)
 
-    find_tags = []
-    for tag in tagObjs:
+    # find_tags = []
+    # for tag in tagObjs:
+    #
+    #     test1 = {"tag":tag.tag}
+    #     find_tags.append(test1)
+    #
+    # jo = json.dumps(find_tags, ensure_ascii=False)
 
-        test1 = {"tag":tag.tag}
-        find_tags.append(test1)
+    find_tags = tagTree(key,1,None)
 
     jo = json.dumps(find_tags, ensure_ascii=False)
 
@@ -179,6 +186,18 @@ def getpictag(request):
 
 
 
+def tagTree(key,level,parent):
+
+    if parent is None:
+        tagObjs = pic_tag.objects.filter(sha=key, level=level)
+    else:
+        tagObjs = pic_tag.objects.filter(sha=key, level=level,tag_parent=parent)
+
+    jsonarray = []
+    for tag in tagObjs:
+        jsonobj = {'tag': tag.tag, 'son': tagTree(key,level+1,tag.tag),'tag_parent':tag.tag_parent}
+        jsonarray.append(jsonobj)
+    return  jsonarray
 
 def CalcSha1(filepath):
     with open(filepath, 'rb') as f:

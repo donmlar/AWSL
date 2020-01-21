@@ -9,8 +9,12 @@ class pic(models.Model):
 
 class pic_tag(models.Model):
     tag_parent = models.CharField(max_length=50)
+    level = models.IntegerField()
     tag = models.CharField(max_length=50)
     sha = models.CharField(max_length=60)
+
+    class Meta:
+        unique_together = ("sha", "tag","level","tag_parent")
 
 
 class tag(models.Model):
